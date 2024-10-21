@@ -1,0 +1,48 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{09060DDA-B833-437B-B035-F743F5237BCE}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="Cliente\client_dbmg.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="Servidor\api_bdmg.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="client_dbmg">
+        <MSBuild Projects="Cliente\client_dbmg.dproj"/>
+    </Target>
+    <Target Name="client_dbmg:Clean">
+        <MSBuild Projects="Cliente\client_dbmg.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="client_dbmg:Make">
+        <MSBuild Projects="Cliente\client_dbmg.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="api_bdmg">
+        <MSBuild Projects="Servidor\api_bdmg.dproj"/>
+    </Target>
+    <Target Name="api_bdmg:Clean">
+        <MSBuild Projects="Servidor\api_bdmg.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="api_bdmg:Make">
+        <MSBuild Projects="Servidor\api_bdmg.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="client_dbmg;api_bdmg"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="client_dbmg:Clean;api_bdmg:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="client_dbmg:Make;api_bdmg:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>
