@@ -6,7 +6,6 @@ uses
   Model.Task.Interfaces in 'src\Model\Task\Model.Task.Interfaces.pas',
   Model.Task in 'src\Model\Task\Model.Task.pas',
   Repository.Task.Interfaces in 'src\Repository\Task\Repository.Task.Interfaces.pas',
-  Repository.Task.Mock in 'src\Repository\Task\Repository.Task.Mock.pas',
   Data.Repository.DM in 'src\Repository\Data.Repository.DM.pas' {DM: TDataModule},
   Routes.Task in 'src\Routes\Routes.Task.pas',
   View.Api in 'src\View\View.Api.pas' {ViewApi},
