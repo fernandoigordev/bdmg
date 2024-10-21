@@ -39,8 +39,8 @@ type
     DBComboBoxPriority: TDBComboBox;
     ClientDataSetTaskStatus: TStringField;
     ClientDataSetTaskPriority: TStringField;
-    DBLookupComboBox1: TDBLookupComboBox;
-    DBLookupComboBox2: TDBLookupComboBox;
+    EditStatus: TEdit;
+    EditPriority: TEdit;
     procedure DBGrid1DrawColumnCell(Sender: TObject; const Rect: TRect;
       DataCol: Integer; Column: TColumn; State: TGridDrawState);
     procedure DBGrid1CellClick(Column: TColumn);
@@ -51,6 +51,8 @@ type
     procedure SpeedButtonSaveClick(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure EditSearchTaskChange(Sender: TObject);
+    procedure DBComboBoxStatusChange(Sender: TObject);
+    procedure DBComboBoxPriorityChange(Sender: TObject);
   private
     class var FInstance: TTaskView;
     FTaskController: TTaskController;
@@ -63,17 +65,32 @@ type
     procedure DoNewTask;
     procedure DoEditTask;
     procedure ChangeTabSheet(ATabSheet: TTabSheet);
+    procedure SetDescriptionStatus;
+    procedure SetDescriptionPriority;
   public
     class function Instance(AParent: TWinControl): TTaskView;
   end;
 
 implementation
 
+uses
+  Types.Task;
+
 {$R *.dfm}
 
 procedure TTaskView.ChangeTabSheet(ATabSheet: TTabSheet);
 begin
   PageControlTask.ActivePage := ATabSheet;
+end;
+
+procedure TTaskView.DBComboBoxPriorityChange(Sender: TObject);
+begin
+  SetDescriptionPriority;
+end;
+
+procedure TTaskView.DBComboBoxStatusChange(Sender: TObject);
+begin
+  SetDescriptionStatus;
 end;
 
 procedure TTaskView.DBGrid1CellClick(Column: TColumn);
@@ -187,6 +204,22 @@ procedure TTaskView.NewTask;
 begin
   FTaskController.CreateTask;
   FTaskController.ReadTasks;
+end;
+
+procedure TTaskView.SetDescriptionPriority;
+var
+  Priority: TTaskPriority;
+begin
+  Priority := TTaskPriority(StrToIntDef(DBComboBoxPriority.Text, 0));
+  EditPriority.Text := TTaskPriorityDescription[Priority];
+end;
+
+procedure TTaskView.SetDescriptionStatus;
+var
+  Status: TTaskStatus;
+begin
+  Status := TTaskStatus(StrToIntDef(DBComboBoxStatus.Text, 0));
+  EditStatus.Text := TTaskStatusDescription[Status];
 end;
 
 procedure TTaskView.SpeedButtonCancelClick(Sender: TObject);

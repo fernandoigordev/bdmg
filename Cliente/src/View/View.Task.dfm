@@ -23,7 +23,7 @@ object TaskView: TTaskView
     Top = 60
     Width = 820
     Height = 480
-    ActivePage = TabSheetSearch
+    ActivePage = TabSheetRegister
     Align = alClient
     TabOrder = 0
     object TabSheetSearch: TTabSheet
@@ -132,7 +132,7 @@ object TaskView: TTaskView
           item
             Expanded = False
             FieldName = 'Priority'
-            Title.Caption = 'Prioridade'
+            Title.Caption = 'Cod. Prioridade'
             Title.Font.Charset = DEFAULT_CHARSET
             Title.Font.Color = clGray
             Title.Font.Height = -15
@@ -145,6 +145,7 @@ object TaskView: TTaskView
             Alignment = taCenter
             Expanded = False
             FieldName = 'Status'
+            Title.Caption = 'Cod. Status'
             Title.Font.Charset = DEFAULT_CHARSET
             Title.Font.Color = clGray
             Title.Font.Height = -15
@@ -219,9 +220,9 @@ object TaskView: TTaskView
       object Label4: TLabel
         Left = 3
         Top = 198
-        Width = 51
+        Width = 72
         Height = 19
-        Caption = 'Priority'
+        Caption = 'Prioridade'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
         Font.Height = -16
@@ -326,7 +327,7 @@ object TaskView: TTaskView
       object DBComboBoxStatus: TDBComboBox
         Left = 3
         Top = 159
-        Width = 145
+        Width = 50
         Height = 27
         DataField = 'Status'
         DataSource = DataSourceTask
@@ -336,17 +337,17 @@ object TaskView: TTaskView
         Font.Name = 'Tahoma'
         Font.Style = []
         Items.Strings = (
-          'Nenhum'
-          'Pendente'
-          'Executando'
-          'Conclu'#237'do')
+          '1'
+          '2'
+          '3')
         ParentFont = False
         TabOrder = 3
+        OnChange = DBComboBoxStatusChange
       end
       object DBComboBoxPriority: TDBComboBox
         Left = 3
         Top = 223
-        Width = 145
+        Width = 50
         Height = 27
         DataField = 'Priority'
         DataSource = DataSourceTask
@@ -356,18 +357,19 @@ object TaskView: TTaskView
         Font.Name = 'Tahoma'
         Font.Style = []
         Items.Strings = (
-          'Nenhuma'
-          'Baixa'
-          'Normal'
-          'Alta')
+          '1'
+          '2'
+          '3')
         ParentFont = False
         TabOrder = 4
+        OnChange = DBComboBoxPriorityChange
       end
-      object DBLookupComboBox1: TDBLookupComboBox
-        Left = 184
+      object EditStatus: TEdit
+        Left = 62
         Top = 159
-        Width = 145
+        Width = 243
         Height = 27
+        Enabled = False
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clGray
         Font.Height = -16
@@ -376,11 +378,12 @@ object TaskView: TTaskView
         ParentFont = False
         TabOrder = 5
       end
-      object DBLookupComboBox2: TDBLookupComboBox
-        Left = 192
-        Top = 255
-        Width = 145
+      object EditPriority: TEdit
+        Left = 62
+        Top = 223
+        Width = 243
         Height = 27
+        Enabled = False
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clGray
         Font.Height = -16

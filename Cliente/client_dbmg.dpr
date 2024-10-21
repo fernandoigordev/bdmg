@@ -13,7 +13,8 @@ uses
   Model.TaskDashboard.Interfaces in 'src\Model\Model.TaskDashboard.Interfaces.pas',
   Model.TaskDashboard in 'src\Model\Model.TaskDashboard.pas',
   Comum.Dto.TaskDashBoard in '..\Comum\Dto\Comum.Dto.TaskDashBoard.pas',
-  Consts in 'src\Consts.pas';
+  Consts in 'src\Consts.pas',
+  Types.Task in '..\Comum\Types\Types.Task.pas';
 
 {$R *.res}
 

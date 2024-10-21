@@ -36,7 +36,9 @@ implementation
 uses
   System.SysUtils,
   Data.Repository.DM,
-  Model.Task, System.DateUtils;
+  Model.Task,
+  System.DateUtils,
+  Types.Task;
 
 { TTaskRepositorySqlServer }
 
@@ -154,15 +156,12 @@ end;
 procedure TTaskRepositorySqlServer.SetTotalTasksCompletedPerDay(ANumberDays: Integer);
 begin
   FQuery.SQL.Clear;
-  FQuery.SQL.Add(Concat('SELECT COUNT(TASK.ID) QUANTITY_TASK ',
+  FQuery.SQL.Add(Concat('SELECT COUNT(ID) QUANTITY_TASK ',
                         '  FROM TASK ',
-                        '  JOIN TASKSTATUS ',
-                        '    ON TASKSTATUS.ID = TASK.IDTASKSTATUS ',
-                        ' WHERE TASKSTATUS.ID = 3 ',
-                        '   AND TASK.COMPLETEDAT BETWEEN :STARTDATE AND :ENDDATE '
+                        ' WHERE IDTASKSTATUS = ', Integer(tsCompleted).ToString,
+                        '   AND COMPLETEDAT > :STARTDATE'
                         ));
   FQuery.ParamByName('STARTDATE').AsDate := IncDay(Now, -ANumberDays);
-  FQuery.ParamByName('ENDDATE').AsDate := Now;
 end;
 
 procedure TTaskRepositorySqlServer.SetTotalTasksSql;
@@ -182,7 +181,9 @@ begin
   FQuery.ParamByName('DESCRIPTION').AsString := ATaskModel.Description;
   FQuery.ParamByName('IDTASKPRIORITY').AsInteger := ATaskModel.PriorityId;
   FQuery.ParamByName('IDTASKSTATUS').AsInteger := ATaskModel.StatusId;
-  FQuery.ParamByName('COMPLETEDAT').AsDateTime := ATaskModel.CompletedAt;
+
+  if (ATaskModel.CompletedAt > 0) or (ATaskModel.StatusId = Integer(tsCompleted)) then
+    FQuery.ParamByName('COMPLETEDAT').AsDateTime := Now;
 end;
 
 procedure TTaskRepositorySqlServer.Update(ATaskModel: ITaskModel);
