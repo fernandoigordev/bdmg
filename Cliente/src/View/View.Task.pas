@@ -81,6 +81,11 @@ uses
 procedure TTaskView.ChangeTabSheet(ATabSheet: TTabSheet);
 begin
   PageControlTask.ActivePage := ATabSheet;
+  if ATabSheet = TabSheetRegister then
+  begin
+    SetDescriptionStatus;
+    SetDescriptionPriority;
+  end;
 end;
 
 procedure TTaskView.DBComboBoxPriorityChange(Sender: TObject);

@@ -132,13 +132,17 @@ end;
 procedure TTaskRepositorySqlServer.SetInsertSql(ATaskModel: ITaskModel);
 begin
   FQuery.SQL.Clear;
-  FQuery.SQL.Add(Concat('INSERT TASK(DESCRIPTION, IDTASKPRIORITY, IDTASKSTATUS, CREATEDAT) ',
-                        'VALUES(:DESCRIPTION, :IDTASKPRIORITY, :IDTASKSTATUS, :CREATEDAT)'));
+  FQuery.SQL.Add(Concat('INSERT TASK(DESCRIPTION, IDTASKPRIORITY, IDTASKSTATUS, CREATEDAT, COMPLETEDAT) ',
+                        'VALUES(:DESCRIPTION, :IDTASKPRIORITY, :IDTASKSTATUS, :CREATEDAT, :COMPLETEDAT)'));
 
   FQuery.ParamByName('DESCRIPTION').AsString := ATaskModel.Description;
   FQuery.ParamByName('IDTASKPRIORITY').AsInteger := ATaskModel.PriorityId;
   FQuery.ParamByName('IDTASKSTATUS').AsInteger := ATaskModel.StatusId;
-  FQuery.ParamByName('CREATEDAT').AsDateTime := Now;
+  FQuery.ParamByName('CREATEDAT').AsDate := Now;
+  FQuery.ParamByName('COMPLETEDAT').AsDate := 0;
+
+  if (ATaskModel.CompletedAt > 0) or (ATaskModel.StatusId = Integer(tsCompleted)) then
+    FQuery.ParamByName('COMPLETEDAT').AsDate := Now;
 end;
 
 procedure TTaskRepositorySqlServer.SetReadSql;
