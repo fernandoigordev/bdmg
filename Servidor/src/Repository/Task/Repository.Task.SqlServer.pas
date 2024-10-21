@@ -106,6 +106,8 @@ begin
 end;
 
 function TTaskRepositorySqlServer.ReadDashboard: TTaskDashBoardDto;
+var
+  TaskPriority: TTaskPriority;
 begin
   Result := TTaskDashBoardDto.Create;
   try
@@ -118,6 +120,18 @@ begin
     Result.CompletedTask := FQuery.FieldByName('QUANTITY_TASK').AsInteger;
 
     SetTotalAvgPendingTask;
+    FQuery.Open;
+    FQuery.First;
+    while not FQuery.Eof do
+    begin
+      TaskPriority := TTaskPriority(FQuery.FieldByName('IdTaskPriority').AsInteger);
+      case TaskPriority of
+        tpLow: Result.AverageLowPriorityPendingTasks := FQuery.FieldByName('AVG_Priority').AsFloat;
+        tpNormal: Result.AverageNormalPriorityPendingTasks := FQuery.FieldByName('AVG_Priority').AsFloat;
+        tpHigh: Result.AverageHighPriorityPendingTasks := FQuery.FieldByName('AVG_Priority').AsFloat;
+      end;
+      FQuery.Next;
+    end;
   except
     Result.Free;
   end;
@@ -155,8 +169,16 @@ end;
 
 procedure TTaskRepositorySqlServer.SetTotalAvgPendingTask;
 begin
-//  FQuery.SQL.Clear;
-//  FQuery.SQL.Text := 'SELECT * FROM TASK';
+  FQuery.SQL.Clear;
+  FQuery.SQL.Text := Concat('WITH CTE AS ( ',
+                            '  SELECT IdTaskPriority, ',
+                            '         count(IdTaskPriority) as QUANTITY ',
+                            '    FROM TASK ',
+                            'group by IdTaskPriority ',
+                            ') ',
+                            'SELECT CTE.IdTaskPriority, ',
+                            '       round((cast(CTE.QUANTITY as decimal(15,2)) / (select count(Task.Id) from Task)), 2) AVG_Priority ',
+                            '  FROM CTE');
 end;
 
 procedure TTaskRepositorySqlServer.SetTotalTasksCompletedPerDay(ANumberDays: Integer);

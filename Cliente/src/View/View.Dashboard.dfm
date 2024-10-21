@@ -170,7 +170,7 @@ object DashboardView: TDashboardView
       ParentFont = False
     end
     object LabelCompletedTasks: TLabel
-      Left = 584
+      Left = 587
       Top = 83
       Width = 42
       Height = 40
@@ -183,15 +183,15 @@ object DashboardView: TDashboardView
       ParentFont = False
     end
     object Label6: TLabel
-      Left = 646
+      Left = 657
       Top = 97
       Width = 151
       Height = 23
       Caption = 'Nos '#250'ltimos 7 dias'
     end
     object Label7: TLabel
-      Left = 340
-      Top = 79
+      Left = 381
+      Top = 81
       Width = 37
       Height = 19
       Caption = 'Baixa'
@@ -203,7 +203,7 @@ object DashboardView: TDashboardView
       ParentFont = False
     end
     object Label8: TLabel
-      Left = 110
+      Left = 117
       Top = 97
       Width = 139
       Height = 23
@@ -223,8 +223,8 @@ object DashboardView: TDashboardView
       ParentFont = False
     end
     object Label12: TLabel
-      Left = 340
-      Top = 110
+      Left = 381
+      Top = 112
       Width = 52
       Height = 19
       Caption = 'Normal'
@@ -249,8 +249,8 @@ object DashboardView: TDashboardView
       ParentFont = False
     end
     object Label14: TLabel
-      Left = 340
-      Top = 140
+      Left = 381
+      Top = 142
       Width = 28
       Height = 19
       Caption = 'Alta'
