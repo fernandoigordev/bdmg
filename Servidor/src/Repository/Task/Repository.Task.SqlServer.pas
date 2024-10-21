@@ -116,6 +116,8 @@ begin
     SetTotalTasksCompletedPerDay(7);
     FQuery.Open;
     Result.CompletedTask := FQuery.FieldByName('QUANTITY_TASK').AsInteger;
+
+    SetTotalAvgPendingTask;
   except
     Result.Free;
   end;
