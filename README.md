@@ -5,7 +5,7 @@
 ### Como rodar a aplicação :pager:
   
   1. Todos os arquivos necessários estão na pasta "exe" na raiz do repositório
-  2. Restaure o banco de dados no Sql Server utilizando o arquivo "banco_dbmg"
+  2. Restaure o banco de dados no Sql Server utilizando o arquivo "bdmg"
   3. Configure a conexão com o banco no arquivo config.ini
   4. Execute o exe do serviço(api_bdmg) e posteriormente o client(bdmg) 
 > Projeto em desenvolvimento :warning: 
