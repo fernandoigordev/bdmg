@@ -183,7 +183,7 @@ object DashboardView: TDashboardView
       ParentFont = False
     end
     object Label6: TLabel
-      Left = 657
+      Left = 652
       Top = 97
       Width = 151
       Height = 23
