@@ -1,4 +1,4 @@
-# DBMG
+# BDMG
 ## Desenvolvimento de api e aplicação para gerenciar informações de tarefas
 <img src="https://img.shields.io/static/v1?label=DELPHI&message=Application&color=red&style=for-the-badge&logo=DELPHI"/>
 
