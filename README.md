@@ -7,7 +7,7 @@
   1. Todos os arquivos necessários estão na pasta "exe" na raiz do repositório
   2. Restaure o banco de dados no Sql Server utilizando o arquivo "bdmg"
   3. Configure a conexão com o banco no arquivo config.ini
-  4. Execute o exe do serviço(api_bdmg) e posteriormente o client(client_bdmg) 
+  4. Execute o exe do serviço(api_bdmg) e posteriormente o cliente(client_bdmg) 
 > Projeto em desenvolvimento :warning: 
  
 
